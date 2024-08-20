@@ -6,7 +6,7 @@ const aliensRemoved = [];
 let invadersId;
 let isGoingRight = true;
 let direction = 1;
-let results = 0
+let results = 0;
 
 for (let i = 0; i < width * width; i++) {
   const square = document.createElement("div");
@@ -93,7 +93,7 @@ if (alienInvaders.length === alienInvaders.length) {
 
 invadersId = setInterval(moveInvaders, 600);
 
-function shoot() {
+function shoot(e) {
   let laserId;
   let currentLaserIndex = currentShooterIndex;
   function moveLaser() {
@@ -102,22 +102,25 @@ function shoot() {
     squares[currentLaserIndex].classList.add("laser");
 
     if (squares[currentLaserIndex].classList.contains("invader")) {
-        squares[currentLaserIndex].classList.remove("laser");
-        squares[currentLaserIndex].classList.remove("invader");
-        squares[currentLaserIndex].classList.add("boom");
-        setTimeout(() =>  squares[currentLaserIndex].classList.remove('boom'), 300
-        clearInterval(laserId)
-        const alienRemoved = alienInvaders.indexOf(currentLaserIndex)
-        aliensRemoved.push(alienInvaders)
-        results++
-        resultDisplay.innerHTML = results
-        console.log(alienInvaders)
-        
-      }
+      squares[currentLaserIndex].classList.remove("laser");
+      squares[currentLaserIndex].classList.remove("invader");
+      squares[currentLaserIndex].classList.add("boom");
+      setTimeout(
+        () => squares[currentLaserIndex].classList.remove("boom"),
+        300
+      );
+      clearInterval(laserId);
+      const alienRemoved = alienInvaders.indexOf(currentLaserIndex);
+      aliensRemoved.push(alienRemoved);
+      results++;
+      resultDisplay.innerHTML = results;
+      console.log(alienInvaders);
     }
   }
+
   if (e.key === "ArrowUp") {
     laserId = setInterval(moveLaser, 100);
   }
+}
 
 document.addEventListener("keydown", shoot);
